@@ -144,7 +144,7 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
 
 	将本地仓库与远程仓库Git-notes关联
 
-	![git_remote_add_origin.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghssspdr0sj30gl01pa9z.jpg)
+	![git_remote_add_origin.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghstdk31n0j30gl01pa9z.jpg)
 
 - 关联后，使用命令git push -u origin master第一次推送master分支的所有内容
 
