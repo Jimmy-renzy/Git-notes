@@ -115,13 +115,13 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
 
 - 在.ssh文件夹里创建config文件，并写入以下内容：
 
-	```
-	
-		#github server
-		Host github.com 
-		RSAAuthentication yes 
-		IdentityFile ~/.ssh/github_id_rsa
-	```
+```
+
+	#github server
+	Host github.com 
+	RSAAuthentication yes 
+	IdentityFile ~/.ssh/github_id_rsa
+```
 
 
 - 本地生成ssh key
@@ -151,4 +151,5 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
 	![git_push_u_origin_master.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghsswu28rsj30pu08bdgu.jpg)
  
 - 此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改
+
 
