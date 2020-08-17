@@ -152,4 +152,22 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
  
 - 此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改
 
+---
+
+## 分支管理 ##
+
+### 创建与合并分支 ###
+
+查看分支：`git branch`
+
+创建分支：`git branch <name>`
+
+切换分支：`git checkout <name>` 或者 `git switch <name>`
+
+创建+切换分支：`git checkout -b <name>` 或者 `git switch -c <name>`
+
+合并某分支到当前分支：`git merge <name>`
+
+删除分支：`git branch -d <name>` ***[注意是branch -d, 不是checkout -d]*** 
+
 
