@@ -166,8 +166,11 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
 
 创建+切换分支：`git checkout -b <name>` 或者 `git switch -c <name>`
 
-合并某分支到当前分支：`git merge <name>`
+合并某分支到当前分支：`git merge <name>` [比如在master分支下执行`git merge dev`，就是把dev分支的工作成果合并到master分支上]
 
 删除分支：`git branch -d <name>` ***[注意是branch -d, 不是checkout -d]*** 
 
 
+### 分支管理 ###
+
+`git log --graph`：查看分支合并图
