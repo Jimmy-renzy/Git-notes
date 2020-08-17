@@ -170,12 +170,135 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
 
 删除分支：`git branch -d <name>` **[注意是branch -d, 不是checkout -d]**
 
+强制删除没有已做修改但没被合并过的分支：`git branch -D <name>`
+
 
 ### 分支管理策略 ###
 
+`git merge --no-ff -m "commit信息" dev`：合并分支时，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+
+![git_merge_no-ff.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghtrft4omgj30gy029dfq.jpg)
+
 `git log --graph`：查看分支合并图
 
+![git_log_--graph.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghtr6ndppjj30jt0c6756.jpg)
 
+
+**在实际开发中，进行分支管理的基本原则：**
+
+- 首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+
+- 那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+
+- 你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+
+- 所以，团队合作的分支看起来就像这样：
 
 ![分支管理策略.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghtqg7pkqnj30na06l0u7.jpg)
 
+
+### 创建分支修复bug ###
+
+1. 修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+
+2. 当手头工作没有完成时，先把工作现场`git stash`一下，然后去修复bug，修复后，再`git stash pop`，回到工作现场；
+
+3. 在master分支上修复的bug，想要合并到当前dev分支，可以用`git cherry-pick <commit>`命令，把bug提交的修改“复制”到当前分支，避免重复劳动。
+
+
+### 分支开发和提交 ###
+
+`git remote -v`：查看远程库信息
+
+
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+
+### 多人协作开发的工作模式 ###
+
+	首先，可以试图用git push origin <branch-name>推送自己的修改；
+	
+	如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+	
+	如果合并有冲突，则解决冲突，并在本地提交；
+	
+	没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+
+
+---
+
+## 标签管理 ##
+
+	发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。
+	
+	将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。
+	
+	Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针，是跟某个commit绑在一起的。
+
+### 创建标签 ###
+
+首先，切换到需要打标签的分支上：
+
+	$ git branch
+	* dev
+	  master
+	$ git checkout master
+	Switched to branch 'master'
+
+然后，敲命令 `git tag <name>` 就可以打一个新标签：
+
+	$ git tag v1.0
+
+可以用命令git tag查看所有标签：
+
+	$ git tag
+	v1.0
+
+默认标签是打在最新提交的commit上的。
+
+如果需要对某次特定的提交打标签，找到它对应的commit id："12axxx"，敲入命令：
+
+	$ git tag v0.9 12axxx
+
+可以用git show <tagname>查看标签的具体信息：
+
+	$ git show v0.9
+	commit f52c63349bc3c1593499807e5c8e972b82c8f286 (tag: v0.9)
+	Author: Michael Liao <askxuefeng@gmail.com>
+	Date:   Fri May 18 21:56:54 2018 +0800
+	
+	    add merge
+	
+	diff --git a/readme.txt b/readme.txt
+	...
+
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+
+	$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+
+
+### 操作标签 ###
+
+- 命令git push origin <tagname>可以推送一个本地标签；
+
+- 命令git push origin --tags可以推送全部未推送过的本地标签；
+
+- 命令git tag -d <tagname>可以删除一个本地标签；
+
+- 命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+---
+
+## 实际开发中遇到的问题 ##
+
+- git clone 后在远程仓库新建了dev分支，但是在本地用 git branch -r 看不到远程新建的分支？
+
+	远程版本库更新，但git不会自动联网去同步更新，所以git在本地同步版本库是手动操作的，对应的就是 git fetch 和 git push。这里就需要git fetch之后，就可以顺利查看远程仓库新建了dev分支。
+
+- `git rebase`???
