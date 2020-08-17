@@ -177,3 +177,5 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
 
 
 
+![分支管理策略.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghtqg7pkqnj30na06l0u7.jpg)
+
