@@ -25,6 +25,8 @@
 
 `git commit`：一般格式为*git commit -m "commit信息"*，用于将缓存区的改动更新至repository的本地版本
 
+`git commit --amend`：上一次的commit message的描述有误，可以通过此命令进行修改
+
 `git push`：将本地版本更新至remote远程git仓库
 
 ***结合工作区、缓存区、本地分支和远程分支去理解git add, git commit, git push***
