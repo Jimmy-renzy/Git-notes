@@ -13,13 +13,13 @@
 
 `git status`：查看工作区的状态
 
-![git_status.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghoe6s0jr0j30iu04vt8y.jpg)
+![git_status.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghuswbmu0fj30iu0460ss.jpg)
 
 `git add`：将代码的改动提交到本地的缓存区
 
 `git diff`：一般在`git add`前可以用`git diff`查看工作区的修改变动；`git diff`是比较的工作区与暂存区的区别，`git diff HEAD`比较的是工作区和本地仓库的区别，`git diff HEAD --filexxx`，可以用来指定查看filexxx在工作区和本地仓库中的区别。
 
-![git_diff.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghogwytmmwj30j109raak.jpg)
+![git_diff.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghusy1s1l0j30h609a3yt.jpg)
 
 `git rm`：将工作区删除文件的操作提交至本地的缓存区，本质上是rm fileA + git add fileA
 
@@ -67,13 +67,13 @@
 
 `git reset`：回退到上一个版本
 
-![git_reset.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghp6kqiamcj30iw0b8my0.jpg)
+![Inkedgit_reset_LI.jpg](http://ww1.sinaimg.cn/large/006dcww6ly1ghut4c5kofj30iu0aoty7.jpg)
 
 Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，也就是最新的提交929dfcb...，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
 
 再用git log查询，只有两条commit信息了
 
-![git_reset2.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghp6j6rkaxj30hi08d0tb.jpg)
+![Inkedgit_reset2_LI.jpg](http://ww1.sinaimg.cn/large/006dcww6ly1ghut6prycij30gk07qe4e.jpg)
 
 **回退到了某个版本，后悔了，又想恢复到新版本怎么办？** 
 
@@ -144,11 +144,11 @@ Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版�
 
 	将本地仓库与远程仓库Git-notes关联
 
-	![git_remote_add_origin.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghstdk31n0j30gl01pa9z.jpg)
+	![Inkedgit_remote_add_origin_LI.jpg](http://ww1.sinaimg.cn/large/006dcww6ly1ghut8w180nj30gl01oh84.jpg)
 
 - 关联后，使用命令git push -u origin master第一次推送master分支的所有内容
 
-	![git_push_u_origin_master.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghsswu28rsj30pu08bdgu.jpg)
+	![git_push_u_origin_master.png](http://ww1.sinaimg.cn/large/006dcww6ly1ghut9yyepkj30p307pdgk.jpg)
  
 - 此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改
 
